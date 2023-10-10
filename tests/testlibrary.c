@@ -298,6 +298,10 @@ test_languages_config (void)
 
   value = flatpak_installation_get_default_languages (inst, &error);
   g_assert_no_error (error);
+
+  for (size_t i = 0; value && value[i]; i++)
+    g_message ("language: %s", value[i]);
+
   g_assert_cmpstr (value[0], ==, "en");
   g_assert_null (value[1]);
 

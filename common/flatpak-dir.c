@@ -16411,6 +16411,10 @@ get_user_locales (FlatpakDir *self)
       get_locale_langs_from_accounts_dbus_for_user (accounts_proxy, langs, getuid ());
       g_ptr_array_add (langs, NULL);
 
+      g_message ("User locales has %u locales", langs->len);
+      for (size_t i = 0; i < langs->len; i++)
+        g_message ("%s", (char *)g_ptr_array_index (langs, i));
+
       g_once_init_leave (&cached, langs);
     }
 
