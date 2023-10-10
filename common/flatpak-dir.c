@@ -16432,13 +16432,12 @@ flatpak_dir_get_default_locales (FlatpakDir *self)
   if (flatpak_dir_is_user (self))
     {
       g_auto(GStrv) locale_langs = flatpak_get_current_locale_langs ();
+      g_auto(GStrv) merged = NULL;
 
       langs = get_user_locales (self);
+      merged = flatpak_strv_merge (extra_languages, (char **) langs->pdata);
 
-      return sort_strv (flatpak_strv_merge (extra_languages,
-                                            langs->len > 0 ?
-                                            (char **) langs->pdata :
-                                            locale_langs));
+      return sort_strv (flatpak_strv_merge (merged, locale_langs));
     }
 
   /* Then get the system default locales */
@@ -16466,13 +16465,12 @@ flatpak_dir_get_default_locale_languages (FlatpakDir *self)
   if (flatpak_dir_is_user (self))
     {
       g_auto(GStrv) locale_langs = flatpak_get_current_locale_langs ();
+      g_auto(GStrv) merged = NULL;
 
       langs = get_user_locales (self);
+      merged = flatpak_strv_merge (extra_languages, (char **) langs->pdata);
 
-      return sort_strv (flatpak_strv_merge (extra_languages,
-                                            langs->len > 0 ?
-                                            (char **) langs->pdata :
-                                            locale_langs));
+      return sort_strv (flatpak_strv_merge (merged, locale_langs));
     }
 
   /* Then get the system default locales */
